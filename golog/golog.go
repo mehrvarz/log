@@ -49,6 +49,7 @@ type Logger struct {
 // New creates a new Logger. The out variable sets the destination to which log
 // data will be written. The threshold variable defines the level under which
 // logging will be ignored.
+
 func New(out io.Writer, threshold log.Level) *Logger {
 	return &Logger{
 		out:       out,
@@ -222,7 +223,8 @@ func (logger *Logger) output(level log.Level, args ...interface{}) {
 }
 
 var defaultFormater = func(buffer *bytes.Buffer, level log.Level, args ...interface{}) {
-	addTimestamp(buffer)
+	//tmtmtm: removed addTimestamp
+	//addTimestamp(buffer)
 	addLevel(buffer, level)
 	addMessage(buffer, args...)
 }
@@ -263,14 +265,15 @@ func writeInt(tmp *[23]byte, intLength, position, integer int) {
 }
 
 var levelPrefixes = []string{
-	" EMERGENCY ",
-	" ALERT ",
-	" CRITICAL ",
-	" ERROR ",
-	" WARNING ",
-	" NOTICE ",
-	" INFO ",
-	" DEBUG ",
+	//tmtmtm: removed leading spaces
+	"EMERGENCY ",
+	"ALERT  ",
+	"CRITICAL ",
+	"ERROR  ",
+	"WARN   ",
+	"NOTICE ",
+	"INFO   ",
+	"DEBUG  ",
 }
 
 func addLevel(buffer *bytes.Buffer, level log.Level) {
