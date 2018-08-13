@@ -56,9 +56,9 @@ import (
 	"io"
 	"os"
 
-	"github.com/alexcesaro/log"
-	"github.com/alexcesaro/log/buflog"
-	"github.com/alexcesaro/log/golog"
+	"github.com/mehrvarz/log"
+	"github.com/mehrvarz/log/buflog"
+	"github.com/mehrvarz/log/golog"
 )
 
 var (

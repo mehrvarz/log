@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alexcesaro/log"
+	"github.com/mehrvarz/log"
 )
 
 // Messages is a map of log messages.

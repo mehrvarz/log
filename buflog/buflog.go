@@ -13,8 +13,8 @@ import (
 	"bufio"
 	"io"
 
-	"github.com/alexcesaro/log"
-	"github.com/alexcesaro/log/golog"
+	"github.com/mehrvarz/log"
+	"github.com/mehrvarz/log/golog"
 )
 
 // A Logger represents an active buffered logging object.

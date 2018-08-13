@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/alexcesaro/log"
-	"github.com/alexcesaro/log/logtest"
+	"github.com/mehrvarz/log"
+	"github.com/mehrvarz/log/logtest"
 )
 
 const testMessage = "Test Message!"

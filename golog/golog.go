@@ -29,7 +29,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/alexcesaro/log"
+	"github.com/mehrvarz/log"
 )
 
 // A Logger represents an active logging object that generates lines of output
