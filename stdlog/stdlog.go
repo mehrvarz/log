@@ -96,6 +96,32 @@ func GetFromFlags() log.Logger {
 	return logger
 }
 
+func GetFromFlagsDate() log.Logger {
+	if logger != nil {
+		return logger
+	}
+	if !flag.Parsed() {
+		flag.Parse()
+	}
+
+	threshold := getLevelFromName(*thresholdName)
+	thresholdName = nil
+
+	out := getStream(*logToStderr)
+	logToStderr = nil
+
+	flushThreshold := getLevelFromName(*flushThresholdName)
+	flushThresholdName = nil
+
+	if flushThreshold == log.None {
+		logger = golog.NewDate(out, threshold)
+	} else {
+		logger = buflog.New(out, threshold, flushThreshold)
+	}
+
+	return logger
+}
+
 func init() {
 	thresholdName = flag.String("log", "info", "sets the logging threshold")
 	logToStderr = flag.Bool("stderr", false, "outputs to standard error (stderr)")

@@ -59,6 +59,15 @@ func New(out io.Writer, threshold log.Level) *Logger {
 	}
 }
 
+func NewDate(out io.Writer, threshold log.Level) *Logger {
+	return &Logger{
+		out:       out,
+		threshold: threshold,
+		Formatter: defaultFormaterDate,
+		Writer:    defaultWriter,
+	}
+}
+
 // Emergency logs with an emergency level.
 func (logger *Logger) Emergency(args ...interface{}) {
 	logger.output(log.Emergency, args...)
@@ -225,6 +234,12 @@ func (logger *Logger) output(level log.Level, args ...interface{}) {
 var defaultFormater = func(buffer *bytes.Buffer, level log.Level, args ...interface{}) {
 	//tmtmtm: removed addTimestamp
 	//addTimestamp(buffer)
+	addLevel(buffer, level)
+	addMessage(buffer, args...)
+}
+
+var defaultFormaterDate = func(buffer *bytes.Buffer, level log.Level, args ...interface{}) {
+	addTimestamp(buffer)
 	addLevel(buffer, level)
 	addMessage(buffer, args...)
 }
