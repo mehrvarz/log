@@ -51,7 +51,6 @@ type Logger struct {
 // logging will be ignored.
 
 func New(out io.Writer, threshold log.Level) *Logger {
-fmt.Errorf("golog New defaultFormater\n");
 	return &Logger{
 		out:       out,
 		threshold: threshold,
@@ -61,7 +60,6 @@ fmt.Errorf("golog New defaultFormater\n");
 }
 
 func NewDate(out io.Writer, threshold log.Level) *Logger {
-fmt.Errorf("golog New defaultFormaterDate\n");
 	return &Logger{
 		out:       out,
 		threshold: threshold,
