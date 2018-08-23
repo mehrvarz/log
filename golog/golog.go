@@ -252,7 +252,7 @@ func addTimestamp(buffer *bytes.Buffer) {
 	year, month, day := now.Date()
 	hour, minute, second := now.Clock()
 
-	var tmp = new([23]byte)
+	var tmp = new([24]byte)
 	writeInt(tmp, 4, 0, year)
 	tmp[4] = '-'
 	writeInt(tmp, 2, 5, int(month))
@@ -266,6 +266,7 @@ func addTimestamp(buffer *bytes.Buffer) {
 	writeInt(tmp, 2, 17, second)
 	tmp[19] = '.'
 	writeInt(tmp, 3, 20, now.Nanosecond()/1000000)
+	tmp[23] = ' '
 	buffer.Write(tmp[:])
 }
 
