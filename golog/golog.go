@@ -59,6 +59,17 @@ func New(out io.Writer, threshold log.Level) *Logger {
 	}
 }
 
+// tmtmtm: added this so I can hand over a writer func
+//         I do so from stdlog.go func GetFromFlagsWriter()
+func NewWriter(out io.Writer, threshold log.Level, writer func(io.Writer, []byte, log.Level)) *Logger {
+	return &Logger{
+	out:	   out,
+	threshold: threshold,
+	Formatter: defaultFormater,
+	Writer:    writer,
+	}
+}
+
 func NewDate(out io.Writer, threshold log.Level) *Logger {
 	return &Logger{
 		out:       out,

@@ -122,6 +122,33 @@ func GetFromFlagsDate() log.Logger {
 	return logger
 }
 
+// tmtmtm: added this so I can hand over a writer func
+func GetFromFlagsWriter(myWriter func(io.Writer, []byte, log.Level)) log.Logger {
+	if logger != nil {
+		return logger
+	}
+	if !flag.Parsed() {
+		flag.Parse()
+	}
+
+	threshold := getLevelFromName(*thresholdName)
+	thresholdName = nil
+
+	out := getStream(*logToStderr)
+	logToStderr = nil
+
+	flushThreshold := getLevelFromName(*flushThresholdName)
+	flushThresholdName = nil
+
+	if flushThreshold == log.None {
+		logger = golog.NewWriter(out, threshold, myWriter)
+	} else {
+		logger = buflog.New(out, threshold, flushThreshold)
+	}
+
+	return logger
+}
+
 func init() {
 	thresholdName = flag.String("log", "info", "sets the logging threshold")
 	logToStderr = flag.Bool("stderr", false, "outputs to standard error (stderr)")
