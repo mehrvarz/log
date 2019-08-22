@@ -79,6 +79,16 @@ func NewDate(out io.Writer, threshold log.Level) *Logger {
 	}
 }
 
+func NewDateWriter(out io.Writer, threshold log.Level, writer func(io.Writer, []byte, log.Level)) *Logger {
+	return &Logger{
+	out:	   out,
+	threshold: threshold,
+	Formatter: defaultFormaterDate,
+	Writer:    writer,
+	}
+}
+
+
 // Emergency logs with an emergency level.
 func (logger *Logger) Emergency(args ...interface{}) {
 	logger.output(log.Emergency, args...)
