@@ -113,3 +113,11 @@ while it will not be executed on the second line.
 [Documentation](http://godoc.org/github.com/alexcesaro/log)
 
 Package log provides a common interface for logging libraries.
+
+
+# Modifications
+
+by timur.mehrvarz@riseup.net
+
+stdlog/stdlog.go: GetFromFlagsDate() GetFromFlagsWriter() GetFromFlagsDateWriter()
+
