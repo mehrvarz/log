@@ -88,6 +88,34 @@ func NewDateWriter(out io.Writer, threshold log.Level, writer func(io.Writer, []
 	}
 }
 
+func GetLevelFromName(levelName string) (level log.Level) {
+	switch levelName {
+	case "debug":
+		level = log.Debug
+	case "info":
+		level = log.Info
+	case "notice":
+		level = log.Notice
+	case "warning":
+		level = log.Warning
+	case "error":
+		level = log.Error
+	case "critical":
+		level = log.Critical
+	case "alert":
+		level = log.Alert
+	case "emergency":
+		level = log.Emergency
+	case "none":
+		level = log.None
+	default:
+		//fmt.Fprintf(os.Stderr, "Invalid level value %q, allowed values are: debug, info, notice, warning, error, critical, alert, emergency and none\n", levelName)
+		//os.Exit(2)
+		level = log.Info
+	}
+
+	return
+}
 
 // Emergency logs with an emergency level.
 func (logger *Logger) Emergency(args ...interface{}) {
@@ -231,6 +259,23 @@ func (logger *Logger) LogDebug() bool {
 // LogLevel returns true if the log level is at or below the level argument.
 func (logger *Logger) LogLevel(level log.Level) bool {
 	return logger.threshold >= level
+}
+
+// tmtmtm new
+func (logger *Logger) GetLogLevel() log.Level {
+	return logger.threshold
+}
+
+// tmtmtm new
+func (logger *Logger) SetLogLevel(level log.Level) log.Level {
+	logger.threshold = level
+	return logger.threshold
+}
+
+// tmtmtm new
+func (logger *Logger) SetLogLevelName(thresholdName string) log.Level {
+	logger.threshold = GetLevelFromName(thresholdName)
+	return logger.threshold
 }
 
 // Close does nothing and is just here so that Logger satisfies the log.Logger

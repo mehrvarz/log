@@ -52,7 +52,6 @@ package stdlog
 
 import (
 	"flag"
-	"fmt"
 	"io"
 	"os"
 
@@ -78,13 +77,13 @@ func GetFromFlags() log.Logger {
 		flag.Parse()
 	}
 
-	threshold := getLevelFromName(*thresholdName)
+	threshold := golog.GetLevelFromName(*thresholdName)
 	thresholdName = nil
 
 	out := getStream(*logToStderr)
 	logToStderr = nil
 
-	flushThreshold := getLevelFromName(*flushThresholdName)
+	flushThreshold := golog.GetLevelFromName(*flushThresholdName)
 	flushThresholdName = nil
 
 	if flushThreshold == log.None {
@@ -104,13 +103,13 @@ func GetFromFlagsDate() log.Logger {
 		flag.Parse()
 	}
 
-	threshold := getLevelFromName(*thresholdName)
+	threshold := golog.GetLevelFromName(*thresholdName)
 	thresholdName = nil
 
 	out := getStream(*logToStderr)
 	logToStderr = nil
 
-	flushThreshold := getLevelFromName(*flushThresholdName)
+	flushThreshold := golog.GetLevelFromName(*flushThresholdName)
 	flushThresholdName = nil
 
 	if flushThreshold == log.None {
@@ -131,13 +130,13 @@ func GetFromFlagsWriter(myWriter func(io.Writer, []byte, log.Level)) log.Logger 
 		flag.Parse()
 	}
 
-	threshold := getLevelFromName(*thresholdName)
+	threshold := golog.GetLevelFromName(*thresholdName)
 	thresholdName = nil
 
 	out := getStream(*logToStderr)
 	logToStderr = nil
 
-	flushThreshold := getLevelFromName(*flushThresholdName)
+	flushThreshold := golog.GetLevelFromName(*flushThresholdName)
 	flushThresholdName = nil
 
 	if flushThreshold == log.None {
@@ -158,13 +157,13 @@ func GetFromFlagsDateWriter(myWriter func(io.Writer, []byte, log.Level)) log.Log
 		flag.Parse()
 	}
 
-	threshold := getLevelFromName(*thresholdName)
+	threshold := golog.GetLevelFromName(*thresholdName)
 	thresholdName = nil
 
 	out := getStream(*logToStderr)
 	logToStderr = nil
 
-	flushThreshold := getLevelFromName(*flushThresholdName)
+	flushThreshold := golog.GetLevelFromName(*flushThresholdName)
 	flushThresholdName = nil
 
 	if flushThreshold == log.None {
@@ -180,34 +179,6 @@ func init() {
 	thresholdName = flag.String("log", "info", "sets the logging threshold")
 	logToStderr = flag.Bool("stderr", false, "outputs to standard error (stderr)")
 	flushThresholdName = flag.String("flushlog", "none", "sets the flush trigger level")
-}
-
-func getLevelFromName(levelName string) (level log.Level) {
-	switch levelName {
-	case "debug":
-		level = log.Debug
-	case "info":
-		level = log.Info
-	case "notice":
-		level = log.Notice
-	case "warning":
-		level = log.Warning
-	case "error":
-		level = log.Error
-	case "critical":
-		level = log.Critical
-	case "alert":
-		level = log.Alert
-	case "emergency":
-		level = log.Emergency
-	case "none":
-		level = log.None
-	default:
-		fmt.Fprintf(os.Stderr, "Invalid level value %q, allowed values are: debug, info, notice, warning, error, critical, alert, emergency and none\n", levelName)
-		os.Exit(2)
-	}
-
-	return
 }
 
 // Stubbed out for testing.
